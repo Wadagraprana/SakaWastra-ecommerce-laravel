@@ -123,6 +123,11 @@ Route::post('/site-settings/{id}', [SiteSettingController::class, 'update'])->na
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.xml');
 
+// // For manual text search
+// Route::get('/search', [ProductController::class, 'search'])->name('search');
+
+// // For image search using Roboflow API
+// Route::post('/image-search', [ProductController::class, 'imageSearch'])->name('image.search');
 
 // Pages
 // TODO: implement CMS features for page and form editing 
@@ -133,6 +138,11 @@ Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.x
 Route::view('/account', 'account')->middleware('auth')->name('about');
 
 Route::get('/cart', \App\Http\Livewire\ShoppingCart::class)->middleware('auth')->name('cart');
+use App\Http\Controllers\ImageSearchController;
+
+
+Route::post('/search-image', [ImageSearchController::class, 'search'])->name('image.search');
+
 
 // Blog routes
 

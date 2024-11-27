@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Support\Facades\Http;
 
 class ProductController extends Controller
 {
@@ -80,6 +81,41 @@ class ProductController extends Controller
 
         return view('products.show', compact('product'));
     }
+
+//     public function imageSearch(Request $request)
+// {
+//     // Validate image
+//     $request->validate([
+//         'image' => 'required|image|max:2048', // Max 2MB image size
+//     ]);
+
+//     $file = $request->file('image');
+//     $response = Http::withHeaders([
+//         'Authorization' => 'z64VlnGxCBmSoCvmyuzJ', // Ensure the token is correct
+//     ])
+//     ->attach(
+//         'file', file_get_contents($file->getRealPath()), $file->getClientOriginalName()
+//     )
+//     ->post('https://detect.roboflow.com/batik-classification-9983a-frndb/3'); // Verify this endpoint
+
+//     // Check if the API response is valid
+//     if ($response->failed()) {
+//         return response()->json(['error' => 'Failed to process image with Roboflow API'], 500);
+//     }
+
+//     // Parse the result from Roboflow API
+//     $results = $response->json();
+//     if (!isset($results['predictions'])) {
+//         return response()->json(['error' => 'Unexpected API response format'], 500);
+//     }
+
+//     // Get the labels from predictions and find matching products
+//     $keywords = collect($results['predictions'])->pluck('label');
+//     $products = Product::whereIn('name', $keywords)->get();
+
+//     // Return search results
+//     return view('search_results', compact('products'));
+// }
 
 
     // public function create(Request $request)
