@@ -32,6 +32,7 @@ class Product extends Model implements Orderable
         'meta_description',
         'meta_keywords',
     ];
+    // Product.php (Model)
 
     public function category()
     {

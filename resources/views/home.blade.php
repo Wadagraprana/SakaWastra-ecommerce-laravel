@@ -30,7 +30,8 @@
         </div>
     </div>
 </div>
-<div class="flex justify-center items-center flex-col space-y-4">
+<div class="flex justify-center items-center flex-col space-y-[64px]">
+    <h2 class="block font-medium text-4xl font-poppins text-roseOfSharon-700 text-center">Not sure about the batik pattern?<br> Search with an image!</h2>
     <form id="imageUploadForm" action="{{ route('image.search') }}" method="POST" enctype="multipart/form-data" class="flex items-center space-x-[124px] bg-white rounded-full p-4">
         @csrf
         <label for="image" class="flex items-center space-x-2 cursor-pointer text-roseOfSharon-600" id="imageLabel">
@@ -107,12 +108,19 @@
         if (data.products.length > 0) {
             let productsHtml = '<h2 class="text-white">Recommended Products:</h2><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">';
             data.products.forEach(product => {
-                productsHtml += `
-                    <div class="bg-white rounded-lg shadow-lg p-4">
-                        <img src="${product.featured_image}" alt="${product.name}" class="h-32 w-full object-cover rounded">
-                        <h3 class="text-black font-bold">${product.name}</h3>
-                        <p class="text-gray-700">${product.short_description}</p>
-                        <p class="text-roseOfSharon-600 font-bold">Price: $${product.price}</p>
+                productsHtml += 
+                    `<div class="bg-white rounded-lg shadow-lg p-6">
+                        <a href="/products/${product.id}" class="block">
+                            <img src="/images/${product.featured_image}" alt="${product.name}" class="h-32 w-full object-cover rounded mb-2">
+                            <h3 class="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white mb-2">${product.name}</h3>
+                        </a>
+                        <p class="text-2xl font-extrabold leading-tight text-roseOfSharon-950 dark:text-white mb-2">Price: $${product.price}</p>
+                        <button type="button" class="w-full flex items-center justify-center rounded-lg bg-roseOfSharon-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-roseOfSharon-800 focus:outline-none dark:bg-roseOfSharon-600 dark:hover:bg-roseOfSharon-700" onclick="Livewire.dispatch('addToCart', ${product.id}, 1)">
+                            <svg class="-ms-2 me-2 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"></path>
+                            </svg>
+                            Add to cart
+                        </button>
                     </div>`;
             });
             productsHtml += '</div>';
@@ -152,7 +160,7 @@
 </script> --}}
 
 
-<div id="products-section" class="container mx-auto px-4 py-4 bg-black">
+<div id="products-section" class="container mx-auto px-4 py-4 bg-black min-h-[300px]">
     <!-- This section will be dynamically populated with search results -->
 </div>
 

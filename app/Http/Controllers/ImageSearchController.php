@@ -20,7 +20,7 @@ class ImageSearchController extends Controller
     public function search(Request $request)
     {
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240',
         ]);
 
         try {
